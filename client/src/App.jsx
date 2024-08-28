@@ -15,6 +15,7 @@ import RestockProduct from './pages/RestockProduct'
 import { Toaster } from 'sonner'
 import Header from './components/Header'
 import DashSidebar from './components/DashSidebar'
+import ProductDetail from './pages/ProductDetail'
 
 
 
@@ -41,7 +42,7 @@ function Layout()
           <div className="w-full">
 
             <Outlet />
-            
+
           </div>
 
         </div>
@@ -75,9 +76,7 @@ export default function App() {
 
               <Route path="/profile" element={<Profile/>}/>
 
-              <Route path="/use-product/:productId" element={<UseProduct/>}/>
-
-              <Route path="/restock-product/:productId" element={<RestockProduct/>}/>
+              <Route path="/product-Detail/:productId" element={<ProductDetail/>}/>
 
           </Route>
 
