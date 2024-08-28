@@ -131,7 +131,7 @@ export const forgotPassword = async (req,res,next) => {
             from:"clivon84@gmail.com",
             to:user.email,
             subject:"Reset Password",
-            text:`Click on this link to reset your password: http://localhost/api/auth/reset-password/${token}`
+            text:`Click on this link to reset your password: http://localhost:5173/reset-password/${token}`
         }
 
         transporter.sendMail(mailOptions ,(error,info) => {
@@ -147,7 +147,7 @@ export const forgotPassword = async (req,res,next) => {
 
         })
 
-        res.status(200).json({message:"link sent to your email successfully"})
+        res.status(200).json({success:true ,message:"link sent to your email successfully"})
     }
     catch(error)
     {
