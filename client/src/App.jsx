@@ -13,6 +13,8 @@ import Profile from './pages/Profile'
 import UseProduct from './pages/UseProduct'
 import RestockProduct from './pages/RestockProduct'
 import { Toaster } from 'sonner'
+import Header from './components/Header'
+import DashSidebar from './components/DashSidebar'
 
 
 
@@ -24,9 +26,25 @@ function Layout()
 
       currentUser ? 
 
-      <div className="">
+      <div className="w-full flex">
 
-        <Outlet />
+        <div className="hidden md:block w-1/4 h-screen border-r border-slate-300 sticky top-0 left-0">
+
+          <DashSidebar />
+
+        </div>
+
+        <div className="w-full md:w-3/4">
+
+          <Header />
+
+          <div className="w-full">
+
+            <Outlet />
+            
+          </div>
+
+        </div>
 
       </div>
        :
