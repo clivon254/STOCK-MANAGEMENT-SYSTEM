@@ -131,7 +131,7 @@ export const forgotPassword = async (req,res,next) => {
             from:"clivon84@gmail.com",
             to:user.email,
             subject:"Reset Password",
-            text:`Click on this link to reset your password: http://localhost:5173/reset-password/${token}`
+            text:`Click on this link to reset your password: https://stock-management-system-frontend-31s1.onrender.com/reset-password/${token}`
         }
 
         transporter.sendMail(mailOptions ,(error,info) => {
