@@ -6,7 +6,7 @@ export const StoreContext = createContext(null)
 
 export default function StoreContextProvider(props)
 {
-    const url = "http://localhost:500"
+    const url = "https://stock-management-system-backend-zxr5.onrender.com"
 
     const contextValue = {
         url
