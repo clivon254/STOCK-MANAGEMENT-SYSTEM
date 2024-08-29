@@ -10,7 +10,12 @@ export default function AddProduct() {
 
   const {url} = useContext(StoreContext)
 
-  const [formData , setFormData] = useState({})
+  const [formData , setFormData] = useState({
+    name:"",
+    unit:"",
+    limit:"",
+    quantity:""
+  })
 
   const navigate = useNavigate()
 
@@ -28,7 +33,7 @@ export default function AddProduct() {
 
     try
     {
-        const res = await axios.post(url + "/api/product/add-product",formData)
+        const res = await axios.post(url + "/api/product/add-product", formData)
 
         if(res.data.success)
         {
@@ -36,11 +41,6 @@ export default function AddProduct() {
 
           setFormData({})
 
-          // setTimeout(() => {
-
-          //   navigate(`/product-Detail/${res.data.product._id}`)
-
-          // },5000)
         } 
 
     }

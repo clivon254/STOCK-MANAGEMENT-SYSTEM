@@ -11,7 +11,7 @@ import { TbCheck } from 'react-icons/tb'
 
 export default function ForgotPassword() {
   
-  const [email ,setEmail] = useState(null)
+  const [formData ,setFormData] = useState({})
 
   const {url} = useContext(StoreContext)
 
@@ -26,7 +26,7 @@ export default function ForgotPassword() {
 
     try
     { 
-      const res = await axios.post(url + "/api/auth/forgot-password",email)
+      const res = await axios.post(url + "/api/auth/forgot-password", formData)
 
       if(res.data.success)
       {
@@ -44,6 +44,13 @@ export default function ForgotPassword() {
 
       setEmailFailure(error.message)
     }
+
+  }
+
+  // handleChange 
+  const handleChange = async (e) => {
+
+    setFormData({...formData,[e.target.name]:e.target.value})
 
   }
 
@@ -65,7 +72,7 @@ export default function ForgotPassword() {
 
         <div className="w-full max-w-md ">
 
-          <h2 className="text-center my-5 text-base text-gray-200">
+          <h2 className="text-center my-5 text-base text-gray-200 px-5">
             Enter your email and a link will be sent your email account to reset the password
           </h2>
 
@@ -79,8 +86,8 @@ export default function ForgotPassword() {
                 type="email"
                 placeholder='name@gmail.com'
                 name="email"
-                value={email}
-                onChange={() => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
               />
 
             </div>
@@ -89,28 +96,30 @@ export default function ForgotPassword() {
               type="submit"
               gradientDuoTone="greenToBlue"
             >
-              {emailSuccess ? 
+              {
+                emailSuccess ? 
                 (
-                  <span>
-                    email Sent <TbCheck />
+                  <span className="flex  items-center  gap-x-2 ">
+                    Email Sent <TbCheck size={20}/>
                   </span>
                 )
                  :
-                 ("send")}
+                ("send")
+                }
             </Button>
 
           </form>
 
-          <div className="px-5 py-5">
+          <div className="px-5 ">
             {emailSuccess && (
 
-              <Alert color="success">{emailSuccess}</Alert>
+              <Alert color="success" className="my-3">{emailSuccess}</Alert>
 
             )}
 
             {emailFailure && (
 
-              <Alert color="failure">{emailFailure}</Alert>
+              <Alert color="failure" className="my-3">{emailFailure}</Alert>
 
             )}
           </div>

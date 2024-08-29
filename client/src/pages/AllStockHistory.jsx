@@ -61,6 +61,8 @@ export default function AllStockHistory() {
               <Table.Head>
 
 
+               <Table.HeadCell></Table.HeadCell>
+
                <Table.HeadCell>Date</Table.HeadCell>
 
                 <Table.HeadCell>Name</Table.HeadCell>
@@ -82,7 +84,9 @@ export default function AllStockHistory() {
 
                     <Table.Row >
 
-                      <Table.Cell>{new Date(history.timestamp).toLocaleDateString()}</Table.Cell>
+                    <Table.Cell>{index+1}.</Table.Cell>
+
+                      <Table.Cell>{new Date(history.timestamp).toLocaleString()}</Table.Cell>
 
                       <Table.Cell className="capitalize">{history.productId.name}</Table.Cell>
 

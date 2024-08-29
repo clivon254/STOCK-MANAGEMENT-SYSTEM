@@ -376,7 +376,7 @@ export default function ProductDetail() {
 
                             <Table.Row >
 
-                              <Table.Cell>{new Date(history.timestamp).toLocaleDateString()}</Table.Cell>
+                              <Table.Cell>{new Date(history.timestamp).toLocaleString()}</Table.Cell>
 
                               <Table.Cell className="capitalize">{history.productId.name}</Table.Cell>
 

@@ -9,6 +9,9 @@ import { StoreContext } from '../context/Store'
 import axios from "axios"
 import { useParams } from 'react-router-dom'
 import { TbCheck } from 'react-icons/tb'
+import {Link} from "react-router-dom"
+
+
 
 export default function ResetPassword() {
  
@@ -53,6 +56,8 @@ export default function ResetPassword() {
     catch(error)
     {
       console.log(error.message)
+
+      setResetFailure("cross check the passwords")
     }
 
   }
@@ -73,7 +78,7 @@ export default function ResetPassword() {
 
       </div>
 
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md space-y-5">
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 px-5">
           
@@ -124,19 +129,42 @@ export default function ResetPassword() {
 
         </form>
 
-        <div className="px-5 py-5">
+
+        <div className="px-5 ">
             {resetSuccess && (
 
-              <Alert color="success">{resetSuccess}</Alert>
+              <Alert color="success" className="my-3">{resetSuccess}</Alert>
 
             )}
 
             {resetFailure && (
 
-              <Alert color="failure">{resetFailure}</Alert>
+              <Alert color="failure" className="my-3" >{resetFailure}</Alert>
 
             )}
-          </div>
+        </div>
+
+        {
+          resetSuccess && (
+
+            <div className="justify-center flex items-center">
+
+              <Button
+                gradientDuoTone="purpleToBlue"
+                outline
+              >
+    
+                <Link to="/sign-in">
+                  sign in
+                </Link>
+    
+              </Button>
+  
+            </div>
+
+          )
+        }
+       
 
       </div>
 
