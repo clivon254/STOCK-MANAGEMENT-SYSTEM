@@ -9,7 +9,7 @@ const productRouter = express.Router()
 productRouter.post('/add-product', addStock)
 
 
-productRouter.post('/use-product', useProduct)
+productRouter.post('/use-product/:productId', useProduct)
 
 
 productRouter.put('/update-product/:id', updateProduct)
@@ -24,7 +24,7 @@ productRouter.get('/get-product/:id', getProduct)
 productRouter.get('/get-Stock', getStock)
 
 
-productRouter.post('/restock', restockProduct)
+productRouter.post('/restock/:productId', restockProduct)
 
 
 

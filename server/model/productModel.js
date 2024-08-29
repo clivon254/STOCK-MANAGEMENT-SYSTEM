@@ -10,9 +10,9 @@ const productSchema = new mongoose.Schema({
 
     quantity:{type:Number , required:true},
 
-    limit:{type:String , required:true},
+    limit:{type:Number , required:true},
 
-    initialQuantity:{type:String }
+    initialQuantity:{type:Number }
 
 },{timestamps:true})
 

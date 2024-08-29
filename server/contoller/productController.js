@@ -47,11 +47,11 @@ export const addStock = async (req,res,next) => {
 
 export const useProduct = async (req,res,next) => {
 
-    const {productId ,amount ,unit} = req.body ;
+    const {amount } = req.body ;
 
     try
     {
-        const product = await Product.findById(productId)
+        const product = await Product.findById(req.params.productId)
 
         if(!product)
         {
@@ -65,30 +65,30 @@ export const useProduct = async (req,res,next) => {
         }
 
         // convert amto to same unit as product
-        let convertedAmount ;
+        // let convertedAmount ;
 
-        if(unit === product.unit)
-        {
-            convertedAmount = amount
-        }
-        else if(unit === 'Kg' && product.unit === 'g')
-        {
-            convertedAmount = amount * 1000
-        }
-        else if(unit === 'g' && product.unit === 'kg')
-        {
-            convertedAmount = amount/1000
-        }
-        else if(unit === 'liters' && product.unit === 'ml')
-        {
-            convertedAmount = amount * 1000
-        }
-        else if(unit === 'ml' && product.unit === 'kg')
-        {
-            convertedAmount = amount/1000
-        }
+        // if(unit === product.unit)
+        // {
+        //     convertedAmount = amount
+        // }
+        // else if(unit === 'Kg' && product.unit === 'g')
+        // {
+        //     convertedAmount = amount * 1000
+        // }
+        // else if(unit === 'g' && product.unit === 'kg')
+        // {
+        //     convertedAmount = amount/1000
+        // }
+        // else if(unit === 'liters' && product.unit === 'ml')
+        // {
+        //     convertedAmount = amount * 1000
+        // }
+        // else if(unit === 'ml' && product.unit === 'kg')
+        // {
+        //     convertedAmount = amount/1000
+        // }
 
-        product.quantity -= convertedAmount ;
+        product.quantity -= amount ;
 
         const history = new History({
 
@@ -114,6 +114,8 @@ export const useProduct = async (req,res,next) => {
     catch(error)
     {
         next(error)
+
+        console.log(error.message)
     }
 }
 
@@ -207,11 +209,11 @@ export const getProduct = async (req,res,next) => {
 
 export const restockProduct = async (req,res,next) => {
 
-    const {productId, restockQuantity} = req.body ;
+    const { restockQuantity} = req.body ;
 
     try
     {
-        const product = await Product.findById(productId)
+        const product = await Product.findById(req.params.productId)
 
         if(!product)
         {
