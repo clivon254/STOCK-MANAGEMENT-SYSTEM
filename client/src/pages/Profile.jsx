@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { StoreContext } from '../context/Store'
 import { useDispatch,useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getDownloadURL, getStorage, uploadBytesResumable,ref } from "firebase/storage"
 import { app } from '../firebase'
 import { signOutSuccess, updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice'
@@ -36,11 +36,12 @@ export default function Profile() {
 
   const [formData ,setFormData] = useState({})
 
-  const filePickerRef = useRef()
-
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
+
+
+  const filePickerRef = useRef()
 
   // handleImageChange
   const handleImageChange = (e) => {
@@ -50,9 +51,13 @@ export default function Profile() {
     if(file)
     {
       setImageFile(file)
+      
       setImageFileUrl(URL.createObjectURL(file))
     }
+
   }
+
+  
 
   useEffect(() => {
 
@@ -63,60 +68,55 @@ export default function Profile() {
 
   },[imageFile])
 
-  // uploadImage
-  const uploadImage = async () => {
 
-    setImageFileUploading(true)
+    // uploadImage
+    const uploadImage = async () => {
 
-    setImageFileUploadingError(null)
+      setImageFileUploading(true)
 
-    const storage = getStorage(app)
+      setImageFileUploadingError(null)
 
-    const fileName = new Date().getTime() + imageFile.name
+      const storage = getStorage(app)
 
-    const storageRef = ref(storage, fileName)
+      const fileName = new Date().getTime() + imageFile.name
 
-    const uploadTask  = uploadBytesResumable(storageRef, imageFile)
+      const storageRef = ref(storage, fileName)
 
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
+      const uploadTask = uploadBytesResumable(storageRef, imageFile)
+      
+      uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+              const progress = (snapshot.bytesTransferred /snapshot.totalBytes) * 100 ;
 
-        const progress = (snapshot.bytesTransferred/snapshot.totalBytes) * 100 ;
+              setImageFileUploadProgress(progress.toFixed(0))
+          },
+          (error) => {
+              setImageFileUploadError(
+                  'Could not upload image (File must be less than 2MB)'
+              )
+              setImageFileUploadProgress(null)
 
-        setImageFileUploadProgress(progress.toFixed(0))
-      },
-      (error) => {
+              setImageFile(null)
 
-        setImageFileUploadingError(
-          "could not upload image (File must be less then 2MB)"
-        )
+              setImageFileUrl(false)
 
-        setImageFileUploadProgress(null)
+              setImageFileUploading(false)
+          },
+          () => {
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
 
-        setImageFile(null)
+                  setImageFileUrl(downloadURL);
 
-        setImageFileUrl(null)
+                  setFormData({...formData, profilePicture : downloadURL})
 
-        setImageFileUploading(false)
-
-      },
-      () => {
-
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-
-          setImageFileUrl(downloadURL)
-
-
-          setFormData({...formData, profilePicture:downloadURL})
-
-          setImageFileUploading(false)
-
-        })
-      }
-    )
+                  setImageFileUploading(false)
+              })
+          }
+      )
   }
 
+  
   // handleChange
   const handleChange = (e) => {
 
@@ -245,16 +245,16 @@ export default function Profile() {
             }
 
             <img 
-              src={imageFileUrl || currentUser.profilePicture} 
-              alt="user" 
-              className={`rounded-full w-full h-full object-cover border-8 border-[lightgray]
-                      ${imageFileUploadProgress && imageFileUploading < 100 && "opacity-60" }`}
+                src={imageFileUrl || currentUser.profilePicture} 
+                alt="user"
+                className={`rounded-full w-full h-full object-cover border-8 border-[lightgray]
+                    ${imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'}`}
             />
 
           </div>
 
           {
-            imageFileUploadProgress && (
+            imageFileUploadingError && (
               <Alert color="failure">
                 {imageFileUploadingError}
               </Alert>
@@ -295,8 +295,15 @@ export default function Profile() {
 
         </form>
 
-        <div className="text-red-500 flex justify-center mt-5">
+        <div className="text-red-500 flex flex-col items-center justify-center mt-5 gap-y-3">
 
+          {currentUser.isAdmin && (
+
+            <Link to="/sign-up"  className="text-teal-400 font-semibold">
+              Register an new User
+            </Link>
+
+          )}
           <span onClick={handleSignOut} className="cursor-pointer">
             sign out
           </span>

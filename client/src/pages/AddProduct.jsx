@@ -10,12 +10,7 @@ export default function AddProduct() {
 
   const {url} = useContext(StoreContext)
 
-  const [formData , setFormData] = useState({
-    name:"",
-    unit:"",
-    limit:"",
-    quantity:""
-  })
+  const [formData , setFormData] = useState({})
 
   const navigate = useNavigate()
 
@@ -25,6 +20,7 @@ export default function AddProduct() {
     setFormData({...formData , [e.target.name]:e.target.value})
 
   }
+
 
   //handleSubmit
   const handleSubmit = async (e) => {
@@ -83,10 +79,13 @@ export default function AddProduct() {
               <Label value="unit"/>
 
                 <Select 
+                  name="unit"
                   placeholder="unit"
                   value={formData.unit}
                   onChange={handleChange}
                 >
+                  <option value="" ></option>
+
                   <option value="kg" >Kg</option>
 
                   <option value="g" >g</option>
@@ -122,7 +121,7 @@ export default function AddProduct() {
               <Label value = "limit"/>
               
               <TextInput 
-                 type=""
+                 type="number"
                  placeholder='limit'
                  name="limit"
                  value={formData.limit}
@@ -134,7 +133,7 @@ export default function AddProduct() {
 
             <Button 
               type="submit"
-              gradientDuoTone="cyanToBlue"
+              gradientDuoTone="tealToLime"
              >
               submit
             </Button>
@@ -146,4 +145,5 @@ export default function AddProduct() {
     </div>
 
   )
+  
 }

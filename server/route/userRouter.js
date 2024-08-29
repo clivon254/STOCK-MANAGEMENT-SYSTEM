@@ -8,10 +8,10 @@ import { verifyToken } from "../utils/verifyToken.js"
 const userRouter = express.Router()
 
 
-userRouter.put("/update-user/:userId",verifyToken, updateUser)
+userRouter.put("/update-user/:userId", updateUser)
 
 
-userRouter.delete("/delete-user/:userId",verifyToken, deleteUser)
+userRouter.delete("/delete-user/:userId", deleteUser)
 
 
 export default userRouter 

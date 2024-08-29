@@ -1,5 +1,3 @@
-
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -7,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB8PZ_FHulos5Q4jKAQhTVQo3xORqZfwF8",
-  authDomain: "employee-system-872ed.firebaseapp.com",
-  projectId: "employee-system-872ed",
-  storageBucket: "employee-system-872ed.appspot.com",
-  messagingSenderId: "916509535807",
-  appId: "1:916509535807:web:4ea4506d6ebdd01b07d28a"
+  apiKey: "AIzaSyCqSmFWiwQmLJXWl1IggAwHxTbzXVR75sY",
+  authDomain: "projects-ff64b.firebaseapp.com",
+  projectId: "projects-ff64b",
+  storageBucket: "projects-ff64b.appspot.com",
+  messagingSenderId: "659659661260",
+  appId: "1:659659661260:web:b013380150d3f7debf4769"
 };
 
 // Initialize Firebase

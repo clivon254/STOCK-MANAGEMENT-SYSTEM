@@ -11,7 +11,7 @@ import axios from "axios"
 import {toast} from "sonner"
 import { StoreContext } from '../context/Store'
 
-export default function SignIn() {
+export default function SignUp() {
 
     const {url} = useContext(StoreContext)
 
@@ -38,23 +38,22 @@ export default function SignIn() {
 
         e.preventDefault()
 
-        if(!formData.email || !formData.password)
+        if(!formData.email || !formData.password || !formData.username)
         {
             return dispatch(signInFailure('Please fill out all the feilds'))
         }
 
         try
         {
-            dispatch(signInStart())
 
-            const res = await axios.post(url + '/api/auth/sign-in', formData)
+            const res = await axios.post(url + '/api/auth/sign-up', formData)
 
             if(res.data.success)
             {
-                dispatch(signInSuccess(res.data.rest))
                 
-                toast.success("signed in successfully")
-                navigate('/')
+                toast.success("user created successfully")
+
+                navigate('/profile')
             }
             else
             {
@@ -111,6 +110,21 @@ export default function SignIn() {
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-y-5">
                     
+                    {/* username*/}
+                    <div className="flex flex-col gap-y-2">
+
+                        <Label className="text-gray-200" value="username"/>
+
+                        <TextInput
+                            type="text"
+                            placeholder='username'
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                        />
+
+                    </div>
+
                     {/* email */}
                     <div className="flex flex-col gap-y-2">
 

@@ -16,6 +16,7 @@ import { Toaster } from 'sonner'
 import Header from './components/Header'
 import DashSidebar from './components/DashSidebar'
 import ProductDetail from './pages/ProductDetail'
+import SignUp from './pages/SignUp'
 
 
 
@@ -81,6 +82,8 @@ export default function App() {
           </Route>
 
           <Route path="/sign-in" element={<SignIn/>}/>
+
+          <Route path="/sign-up" element={<SignUp/>}/>
 
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
 
