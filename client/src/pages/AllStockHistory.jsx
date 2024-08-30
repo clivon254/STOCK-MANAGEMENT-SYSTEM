@@ -80,15 +80,15 @@ export default function AllStockHistory() {
               {
                 history?.map((history,index) => (
 
-                  <Table.Body key={history._id}>
+                  <Table.Body key={history?._id}>
 
                     <Table.Row >
 
                     <Table.Cell>{index+1}.</Table.Cell>
 
-                      <Table.Cell>{new Date(history.timestamp).toLocaleString()}</Table.Cell>
+                      <Table.Cell>{new Date(history?.timestamp).toLocaleString()}</Table.Cell>
 
-                      <Table.Cell className="capitalize">{history.productId.name}</Table.Cell>
+                      <Table.Cell className="capitalize">{history?productId?.name}</Table.Cell>
 
                       <Table.Cell>{history?.type}</Table.Cell>
 
