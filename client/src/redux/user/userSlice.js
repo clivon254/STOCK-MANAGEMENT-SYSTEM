@@ -32,7 +32,7 @@ const userSlice = createSlice({
 
         signInFailure:(state,action) => {
 
-            state.currentUser = action.payload ;
+            state.error = action.payload ;
 
             state.loading = false ;
         },
